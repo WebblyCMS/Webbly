@@ -1,0 +1,157 @@
+{
+    "name": "Webbly CMS Test Suite",
+    "version": "1.0.0",
+    "description": "Comprehensive test suite for Webbly CMS",
+    "structure": {
+        "fixtures": {
+            "description": "Test fixtures and utilities",
+            "files": {
+                "assertions.py": "Custom test assertions",
+                "benchmarks.py": "Performance benchmarking utilities",
+                "cleanup.py": "Test cleanup utilities",
+                "compatibility.py": "Browser compatibility testing",
+                "config.py": "Test configuration",
+                "data.py": "Test data generation",
+                "decorators.py": "Test decorators",
+                "documentation.py": "Test documentation generation",
+                "exceptions.py": "Custom test exceptions",
+                "init.py": "Test suite initialization",
+                "integration.py": "Integration testing utilities",
+                "logging.py": "Test logging utilities",
+                "markers.py": "Custom pytest markers",
+                "matchers.py": "Custom test matchers",
+                "performance.py": "Performance testing utilities",
+                "profiling.py": "Code profiling utilities",
+                "reporters.py": "Test result reporting",
+                "security.py": "Security testing utilities",
+                "setup.py": "Test environment setup",
+                "statistics.py": "Test statistics collection",
+                "utils.py": "Common test utilities",
+                "validation.py": "Data validation utilities"
+            }
+        },
+        "unit": {
+            "description": "Unit tests",
+            "directories": {
+                "models": "Database model tests",
+                "views": "View function tests",
+                "forms": "Form handling tests",
+                "utils": "Utility function tests"
+            }
+        },
+        "integration": {
+            "description": "Integration tests",
+            "directories": {
+                "database": "Database integration tests",
+                "cache": "Cache integration tests",
+                "email": "Email integration tests",
+                "search": "Search integration tests"
+            }
+        },
+        "functional": {
+            "description": "Functional tests",
+            "directories": {
+                "auth": "Authentication tests",
+                "admin": "Admin interface tests",
+                "posts": "Post management tests",
+                "pages": "Page management tests",
+                "themes": "Theme management tests",
+                "plugins": "Plugin management tests"
+            }
+        },
+        "performance": {
+            "description": "Performance tests",
+            "directories": {
+                "load": "Load testing",
+                "stress": "Stress testing",
+                "benchmark": "Performance benchmarks"
+            }
+        },
+        "security": {
+            "description": "Security tests",
+            "directories": {
+                "xss": "Cross-site scripting tests",
+                "csrf": "CSRF protection tests",
+                "sql": "SQL injection tests",
+                "auth": "Authentication security tests"
+            }
+        }
+    },
+    "dependencies": {
+        "python": ">=3.8",
+        "pip": ">=21.0",
+        "packages": {
+            "testing": [
+                "pytest>=7.4.0",
+                "pytest-cov>=4.1.0",
+                "pytest-xdist>=3.3.1",
+                "pytest-timeout>=2.1.0"
+            ],
+            "database": [
+                "pytest-postgresql>=4.1.1",
+                "pytest-mongodb>=2.2.0",
+                "pytest-redis>=3.0.0"
+            ],
+            "browser": [
+                "selenium>=4.10.0",
+                "playwright>=1.35.0"
+            ],
+            "security": [
+                "safety>=2.3.5",
+                "bandit>=1.7.5"
+            ],
+            "performance": [
+                "locust>=2.15.1",
+                "psutil>=5.9.5"
+            ]
+        }
+    },
+    "configuration": {
+        "files": {
+            ".env.test": "Test environment configuration",
+            "conftest.py": "pytest configuration",
+            "requirements-test.txt": "Test dependencies",
+            "Makefile": "Build and test automation"
+        },
+        "scripts": {
+            "init_test_env.py": "Test environment initialization",
+            "init_tests.sh": "Unix/Linux initialization script",
+            "init_tests.bat": "Windows initialization script",
+            "run_tests.sh": "Unix/Linux test runner",
+            "run_tests.bat": "Windows test runner"
+        }
+    },
+    "reports": {
+        "directories": {
+            "coverage": "Test coverage reports",
+            "html": "HTML test reports",
+            "xml": "XML test reports",
+            "json": "JSON test reports",
+            "performance": "Performance test reports",
+            "security": "Security test reports"
+        }
+    },
+    "commands": {
+        "setup": {
+            "init": "Initialize test environment",
+            "clean": "Clean test environment",
+            "install": "Install test dependencies"
+        },
+        "test": {
+            "all": "Run all tests",
+            "unit": "Run unit tests",
+            "integration": "Run integration tests",
+            "functional": "Run functional tests",
+            "performance": "Run performance tests",
+            "security": "Run security tests"
+        },
+        "options": {
+            "coverage": "Generate coverage report",
+            "report": "Generate HTML report",
+            "parallel": "Run tests in parallel",
+            "verbose": "Show detailed output",
+            "quiet": "Show minimal output",
+            "failfast": "Stop on first failure"
+        }
+    }
+}

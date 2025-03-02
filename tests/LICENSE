@@ -1,0 +1,64 @@
+MIT License
+
+Copyright (c) 2023 Webbly CMS Test Suite Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Additional Terms for Test Data and Fixtures:
+
+1. Test Data
+   Any test data included in this test suite is provided for testing purposes
+   only and should not contain any real, personal, or sensitive information.
+   Test data should be generated or anonymized appropriately.
+
+2. Test Fixtures
+   Test fixtures and utilities are provided to support testing and should not
+   be used in production environments without appropriate review and modification.
+
+3. Security Testing
+   Security test cases and vulnerability scanning tools included in this suite
+   should only be used against systems you have permission to test. Do not use
+   these tools against systems you do not own or have explicit permission to test.
+
+4. Performance Testing
+   Performance test scenarios should be executed in appropriate test environments
+   to avoid impacting production systems. Consider resource requirements and
+   potential impact before running performance tests.
+
+5. Browser Testing
+   Browser automation and compatibility testing features require appropriate
+   browser drivers and dependencies. Ensure you comply with browser vendors'
+   terms of use and licensing requirements.
+
+6. Third-Party Components
+   Some test utilities may include or depend on third-party components that
+   are subject to their own licenses. Review and comply with all applicable
+   third-party licenses.
+
+7. Contributions
+   By contributing to this test suite, you agree that your contributions
+   will be licensed under the same MIT license and additional terms.
+
+8. Disclaimer
+   This test suite is provided for testing purposes only. The authors and
+   contributors are not responsible for any damage or issues caused by using
+   these tests inappropriately or in production environments.
+
+For questions about licensing or usage, please contact the maintainers or
+open an issue in the project repository.
