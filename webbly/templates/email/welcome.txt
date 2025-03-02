@@ -1,0 +1,40 @@
+Welcome to Webbly!
+
+Hello {{ user.username }},
+
+Thank you for joining Webbly! We're excited to have you on board. Your account has been successfully created.
+
+{% if user.is_admin %}
+ADMINISTRATOR ACCOUNT
+-------------------
+Your account has been set up with administrator privileges. You can access the admin dashboard to manage your website at:
+{{ url_for('admin.dashboard', _external=True) }}
+{% endif %}
+
+GETTING STARTED
+--------------
+Here are a few things you can do to get started:
+* Customize your website settings
+* Create your first post
+* Choose a theme
+* Install plugins
+
+RESOURCES
+---------
+Check out these resources to help you make the most of Webbly:
+* Documentation
+* User Guide
+* Video Tutorials
+* Support Forum
+
+If you have any questions or need assistance, don't hesitate to reach out to our support team.
+
+Best regards,
+The Webbly Team
+
+---
+This email was sent by Webbly CMS
+© {{ now.year }} Webbly. All rights reserved.
+
+You received this email because you signed up for a Webbly account.
+If you didn't create this account, please contact us at support@webbly.com

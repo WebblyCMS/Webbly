@@ -1,0 +1,100 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Webbly Dashboard - Features
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+    .toggle-checkbox:checked {
+        right: 0;
+        border-color: #68D391; /* Tailwind's green-400 color */
+    }
+    .toggle-checkbox:checked + .toggle-label {
+        background-color: #68D391; /* Tailwind's green-400 color */
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="flex h-screen">
+   {% include 'Dashboard/Pieces/sidebar.html' %}
+
+   <!-- Main Content -->
+   <div class="flex-1 p-10 space-y-6 overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+     <h1 class="text-3xl font-semibold">
+      Features
+     </h1>
+     <div class="flex items-center space-x-4">
+      <img alt="User profile picture" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/iv6czBTDsgjdStc4g5o5pOpIl1TjUMXepR3Sq4LSioc.jpg" width="40"/>
+     </div>
+    </div>
+    <!-- Features List -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <h2 class="text-2xl font-semibold mb-4">
+      Available Features
+     </h2>
+     <div class="space-y-4">
+      <div class="flex justify-between items-center">
+       <span class="text-gray-700 font-semibold">
+        Feature 1
+       </span>
+       <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="feature1" type="checkbox"/>
+        <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="feature1">
+        </label>
+       </div>
+      </div>
+      <div class="flex justify-between items-center">
+       <span class="text-gray-700 font-semibold">
+        Feature 2
+       </span>
+       <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="feature2" type="checkbox"/>
+        <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="feature2">
+        </label>
+       </div>
+      </div>
+      <div class="flex justify-between items-center">
+       <span class="text-gray-700 font-semibold">
+        Feature 3
+       </span>
+       <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="feature3" type="checkbox"/>
+        <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="feature3">
+        </label>
+       </div>
+      </div>
+      <div class="flex justify-between items-center">
+       <span class="text-gray-700 font-semibold">
+        Feature 4
+       </span>
+       <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="feature4" type="checkbox"/>
+        <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="feature4">
+        </label>
+       </div>
+      </div>
+      <div class="flex justify-between items-center">
+       <span class="text-gray-700 font-semibold">
+        Feature 5
+       </span>
+       <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+        <input checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="feature5" type="checkbox"/>
+        <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="feature5">
+        </label>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #1a56db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f8fafc;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 5px 5px;
+        }
+        .button {
+            display: inline-block;
+            background-color: #1a56db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .feature {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        .feature-icon {
+            color: #1a56db;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to Webbly!</h1>
+    </div>
+    
+    <div class="content">
+        <p>Hello {{ user.username }},</p>
+        
+        <p>Thank you for joining Webbly! We're excited to have you on board. Your account has been successfully created.</p>
+        
+        {% if user.is_admin %}
+        <div class="feature">
+            <div class="feature-icon">👑</div>
+            <h3>Administrator Account</h3>
+            <p>Your account has been set up with administrator privileges. You can access the admin dashboard to manage your website.</p>
+            <p style="text-align: center;">
+                <a href="{{ url_for('admin.dashboard', _external=True) }}" class="button">
+                    Access Dashboard
+                </a>
+            </p>
+        </div>
+        {% endif %}
+        
+        <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <h3>Getting Started</h3>
+            <p>Here are a few things you can do to get started:</p>
+            <ul>
+                <li>Customize your website settings</li>
+                <li>Create your first post</li>
+                <li>Choose a theme</li>
+                <li>Install plugins</li>
+            </ul>
+        </div>
+        
+        <div class="feature">
+            <div class="feature-icon">📚</div>
+            <h3>Resources</h3>
+            <p>Check out these resources to help you make the most of Webbly:</p>
+            <ul>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">User Guide</a></li>
+                <li><a href="#">Video Tutorials</a></li>
+                <li><a href="#">Support Forum</a></li>
+            </ul>
+        </div>
+        
+        <p>If you have any questions or need assistance, don't hesitate to reach out to our support team.</p>
+        
+        <p>Best regards,<br>The Webbly Team</p>
+    </div>
+    
+    <div class="footer">
+        <p>This email was sent by Webbly CMS</p>
+        <p>&copy; {{ now.year }} Webbly. All rights reserved.</p>
+        <p>
+            <small>You received this email because you signed up for a Webbly account.
+            If you didn't create this account, please <a href="#">contact us</a>.</small>
+        </p>
+    </div>
+</body>
+</html>

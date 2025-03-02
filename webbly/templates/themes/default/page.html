@@ -1,0 +1,191 @@
+{% extends "themes/default/base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .prose {
+        max-width: 65ch;
+        margin: 0 auto;
+    }
+    .prose img {
+        margin: 2rem auto;
+        border-radius: 0.5rem;
+    }
+    .prose pre {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+    .prose code {
+        background: #f1f5f9;
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+    }
+    .prose pre code {
+        background: none;
+        padding: 0;
+    }
+    
+    /* Template-specific styles */
+    {% if page.template == 'full-width' %}
+    .content-wrapper {
+        max-width: 100%;
+        padding: 0;
+    }
+    {% elif page.template == 'sidebar' %}
+    .content-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 2rem;
+    }
+    @media (max-width: 768px) {
+        .content-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+    {% elif page.template == 'landing' %}
+    .content-wrapper {
+        max-width: 100%;
+        padding: 0;
+    }
+    .hero {
+        background-color: #1a56db;
+        color: white;
+        padding: 4rem 0;
+    }
+    .features {
+        padding: 4rem 0;
+        background-color: #f8fafc;
+    }
+    {% endif %}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if page.template == 'landing' %}
+    <!-- Landing Page Template -->
+    <div class="hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-bold mb-4">{{ page.title }}</h1>
+            {% if page.excerpt %}
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">{{ page.excerpt }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="prose prose-lg mx-auto">
+                {{ page.content|markdown }}
+            </div>
+        </div>
+    </div>
+
+{% elif page.template == 'sidebar' %}
+    <!-- Sidebar Template -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="content-wrapper">
+            <main>
+                <h1 class="text-4xl font-bold text-gray-900 mb-8">{{ page.title }}</h1>
+                <div class="prose prose-lg">
+                    {{ page.content|markdown }}
+                </div>
+            </main>
+            
+            <aside class="space-y-8">
+                <!-- Recent Posts -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Posts</h3>
+                    {% for post in get_recent_posts(5) %}
+                        <a href="{{ url_for('core.post', slug=post.slug) }}" 
+                           class="block mb-4 hover:bg-gray-50 p-2 rounded">
+                            <h4 class="text-sm font-medium text-gray-900">{{ post.title }}</h4>
+                            <p class="text-xs text-gray-500 mt-1">
+                                {{ post.created_at.strftime('%B %d, %Y') }}
+                            </p>
+                        </a>
+                    {% endfor %}
+                </div>
+                
+                <!-- Categories -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {% for category in get_categories() %}
+                            <a href="{{ url_for('core.category', slug=category.slug) }}"
+                               class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-gray-200">
+                                {{ category.name }}
+                                <span class="ml-2 text-gray-500">{{ category.posts|length }}</span>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+{% elif page.template == 'full-width' %}
+    <!-- Full Width Template -->
+    <div class="content-wrapper">
+        <header class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="text-4xl font-bold">{{ page.title }}</h1>
+                {% if page.excerpt %}
+                    <p class="mt-4 text-xl text-gray-300">{{ page.excerpt }}</p>
+                {% endif %}
+            </div>
+        </header>
+        
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="prose prose-lg">
+                {{ page.content|markdown }}
+            </div>
+        </main>
+    </div>
+
+{% else %}
+    <!-- Default Template -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900">{{ page.title }}</h1>
+            {% if page.excerpt %}
+                <p class="mt-4 text-xl text-gray-500">{{ page.excerpt }}</p>
+            {% endif %}
+        </header>
+        
+        <div class="prose prose-lg mx-auto">
+            {{ page.content|markdown }}
+        </div>
+    </div>
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.is_admin %}
+    <div class="fixed bottom-4 right-4">
+        <a href="{{ url_for('admin.edit_page', id=page.id) }}"
+           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 shadow-lg">
+            <i class="fas fa-edit mr-2"></i>
+            Edit Page
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
+<script>
+// Highlight code blocks
+document.addEventListener('DOMContentLoaded', (event) => {
+    Prism.highlightAll();
+});
+</script>
+{% endblock %}

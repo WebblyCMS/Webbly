@@ -1,0 +1,207 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Webbly Dashboard - Combined Version</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-center p-4 md:p-6 bg-white shadow-md">
+            <div class="flex items-center space-x-4">
+                <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition duration-200 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back
+                </button>
+                <h1 class="text-xl md:text-2xl font-semibold">Webbly Ready</h1>
+                <span class="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-semibold">Beta</span>
+            </div>
+            <div class="relative mt-2 md:mt-0">
+                <input class="w-full md:w-64 px-4 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" placeholder="Search presets..." type="text"/>
+                <i class="fas fa-search absolute right-3 top-2 text-gray-500"></i>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex-1 p-4 md:p-10 space-y-4 md:space-y-6 overflow-y-auto">
+            <!-- E-commerce Section -->
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl md:text-2xl font-semibold mb-2 flex items-center">
+                    <i class="fas fa-shopping-cart mr-2 text-blue-500"></i>
+                    E-commerce
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Product Cards -->
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="E-commerce products preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Products</h3>
+                        <p class="text-gray-600 mb-2">A preset for showcasing products.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="E-commerce games preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Games</h3>
+                        <p class="text-gray-600 mb-2">A preset for selling games.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="E-commerce subscriptions preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Subscriptions</h3>
+                        <p class="text-gray-600 mb-2">A preset for subscription services.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="E-commerce games and subscriptions preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Games and Subscriptions</h3>
+                        <p class="text-gray-600 mb-2">A preset for selling games and subscriptions.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Food Section -->
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl md:text-2xl font-semibold mb-2 flex items-center">
+                    <i class="fas fa-utensils mr-2 text-green-500"></i>
+                    Food
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Food Cards -->
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Online restaurant menu preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Online Restaurant Menu</h3>
+                        <p class="text-gray-600 mb-2">A preset for an online restaurant menu.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Restaurant website preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Restaurant Website</h3>
+                        <p class="text-gray-600 mb-2">A preset for a restaurant website.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Takeout service preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Takeout Service</h3>
+                        <p class="text-gray-600 mb-2">A preset for a takeout service.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Food delivery service preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Food Delivery Service</h3>
+                        <p class="text-gray-600 mb-2">A preset for a food delivery service.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog Section -->
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl md:text-2xl font-semibold mb-2 flex items-center">
+                    <i class="fas fa-blog mr-2 text-purple-500"></i>
+                    Blog
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Blog Cards -->
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Personal blog preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Personal Blog</h3>
+                        <p class="text-gray-600 mb-2">A preset for a personal blog.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Travel blog preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Travel Blog</h3>
+                        <p class="text-gray-600 mb-2">A preset for a travel blog.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Tech blog preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Tech Blog</h3>
+                        <p class="text-gray-600 mb-2">A preset for a tech blog.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Lifestyle blog preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Lifestyle Blog</h3>
+                        <p class="text-gray-600 mb-2">A preset for a lifestyle blog.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Portfolio Section -->
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl md:text-2xl font-semibold mb-2 flex items-center">
+                    <i class="fas fa-briefcase mr-2 text-orange-500"></i>
+                    Portfolio
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Portfolio Cards -->
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Photographer portfolio preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Photographer Portfolio</h3>
+                        <p class="text-gray-600 mb-2">A preset for a photographer's portfolio.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Designer portfolio preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Designer Portfolio</h3>
+                        <p class="text-gray-600 mb-2">A preset for a designer's portfolio.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Artist portfolio preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Artist Portfolio</h3>
+                        <p class="text-gray-600 mb-2">A preset for an artist's portfolio.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Freelancer portfolio preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Freelancer Portfolio</h3>
+                        <p class="text-gray-600 mb-2">A preset for a freelancer's portfolio.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                </div>
+            </div>
+            <!-- General Websites Section -->
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl md:text-2xl font-semibold mb-2 flex items-center">
+                    <i class="fas fa-globe mr-2 text-teal-500"></i>
+                    General Websites
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- General Website Cards -->
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Single Page Website preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Single Page Website</h3>
+                        <p class="text-gray-600 mb-2">A minimalist design that presents all content on one page.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Multi-Page Website preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Multi-Page Website</h3>
+                        <p class="text-gray-600 mb-2">A traditional structure with multiple pages.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Grid Layout Website preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Grid Layout Website</h3>
+                        <p class="text-gray-600 mb-2">Utilizing a grid system to display content.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg flex flex-col">
+                        <img alt="Magazine or News Website preset" class="rounded-lg mb-4 max-w-full h-auto" src="https://webblycms.github.io/assets/webblyposter.png" />
+                        <h3 class="text-lg md:text-xl font-semibold mb-2">Magazine or News Website</h3>
+                        <p class="text-gray-600 mb-2">Featuring a dynamic layout with multiple articles.</p>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 w-full mt-auto">Activate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

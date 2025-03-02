@@ -1,0 +1,129 @@
+{
+    "name": "Webbly Default",
+    "version": "1.0.0",
+    "description": "The default theme for Webbly CMS. A clean, modern, and responsive theme that works great for blogs and simple websites.",
+    "author": "Webbly Team",
+    "license": "MIT",
+    "website": "https://webbly.com",
+    "tags": ["responsive", "blog", "modern", "clean"],
+    "supports": {
+        "customColors": true,
+        "customFonts": true,
+        "customLogo": true,
+        "customHeader": true,
+        "customFooter": true,
+        "widgets": true,
+        "comments": true,
+        "search": true,
+        "darkMode": true
+    },
+    "templates": {
+        "default": {
+            "name": "Default",
+            "description": "Standard page layout with centered content"
+        },
+        "full-width": {
+            "name": "Full Width",
+            "description": "Full width layout with no content restrictions"
+        },
+        "sidebar": {
+            "name": "With Sidebar",
+            "description": "Two-column layout with a sidebar"
+        },
+        "landing": {
+            "name": "Landing Page",
+            "description": "Special layout for landing pages with hero section"
+        }
+    },
+    "colors": {
+        "primary": "#1a56db",
+        "secondary": "#6b7280",
+        "accent": "#3b82f6",
+        "background": "#f8fafc",
+        "text": "#1f2937",
+        "heading": "#111827",
+        "link": "#2563eb",
+        "linkHover": "#1d4ed8",
+        "border": "#e5e7eb",
+        "success": "#059669",
+        "error": "#dc2626",
+        "warning": "#d97706",
+        "info": "#2563eb"
+    },
+    "fonts": {
+        "body": {
+            "family": "Inter",
+            "weights": [300, 400, 500, 600, 700],
+            "fallback": "system-ui, -apple-system, sans-serif"
+        },
+        "heading": {
+            "family": "Inter",
+            "weights": [600, 700, 800],
+            "fallback": "system-ui, -apple-system, sans-serif"
+        },
+        "code": {
+            "family": "JetBrains Mono",
+            "weights": [400],
+            "fallback": "monospace"
+        }
+    },
+    "spacing": {
+        "containerWidth": "1280px",
+        "contentWidth": "768px",
+        "gap": "2rem",
+        "sidebarWidth": "300px"
+    },
+    "breakpoints": {
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+    },
+    "customization": {
+        "logo": {
+            "maxWidth": "200px",
+            "maxHeight": "50px"
+        },
+        "header": {
+            "sticky": true,
+            "transparent": false,
+            "height": "64px"
+        },
+        "footer": {
+            "columns": 3,
+            "showSocial": true,
+            "showCopyright": true
+        }
+    },
+    "widgets": {
+        "sidebar": [
+            "search",
+            "categories",
+            "recentPosts",
+            "tags",
+            "archives"
+        ],
+        "footer": [
+            "about",
+            "navigation",
+            "social"
+        ]
+    },
+    "dependencies": {
+        "css": [
+            "https://cdn.tailwindcss.com",
+            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css",
+            "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        ],
+        "js": [
+            "https://code.jquery.com/jquery-3.6.0.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"
+        ]
+    },
+    "screenshots": {
+        "desktop": "screenshot-desktop.png",
+        "mobile": "screenshot-mobile.png",
+        "tablet": "screenshot-tablet.png"
+    }
+}

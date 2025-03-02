@@ -1,0 +1,239 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Webbly Dashboard - Themes
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+    .outline-button {
+        outline: 2px solid #3B82F6; /* Tailwind's blue-500 color */
+        outline-offset: 2px;
+    }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="flex h-screen">
+   {% include 'Dashboard/Pieces/sidebar.html' %}
+
+   <!-- Main Content -->
+   <div class="flex-1 p-10 space-y-6 overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+     <h1 class="text-3xl font-semibold">
+      Themes
+     </h1>
+     <div class="flex items-center space-x-4">
+      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+       <i class="fas fa-upload mr-2">
+       </i>
+       Upload Theme
+      </button>
+      <img alt="User profile picture" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/iv6czBTDsgjdStc4g5o5pOpIl1TjUMXepR3Sq4LSioc.jpg" width="40"/>
+     </div>
+    </div>
+    <!-- Installed Themes -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <h2 class="text-2xl font-semibold mb-4">
+      Installed Themes
+     </h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-lg border-2 border-blue-500">
+       <img alt="Screenshot of Current Theme" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/_xTDWb1-Ojw2CCjxF85_8sWPkpOSDOTP8WEwH_FYBMw.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Current Theme
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of the current theme.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 outline-button">
+         Active
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme1')">
+         Details
+        </button>
+       </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+       <img alt="Screenshot of Theme 2" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/qcFXw5XeCB2JPkqyYy0nd6X0tMVrSTg4MFUTw85OqUE.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Theme 2
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of Theme 2.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+         Activate
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme2')">
+         Details
+        </button>
+       </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+       <img alt="Screenshot of Theme 3" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/NAAmYzvp9IZ0hVMrgOdERNUttloZgt7B3czEcvqoMfc.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Theme 3
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of Theme 3.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+         Activate
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme3')">
+         Details
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Available Themes -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-semibold">
+       Available Themes
+      </h2>
+      <div class="relative">
+       <input class="w-64 px-4 py-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" placeholder="Search themes..." type="text"/>
+       <i class="fas fa-search absolute right-3 top-2 text-gray-500">
+       </i>
+      </div>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+       <img alt="Screenshot of Theme 4" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/nA4y3EAybqHPNuNInkrTE3PE7RSF5p4hEdvMOPKXHEQ.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Theme 4
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of Theme 4.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+         Install
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme4')">
+         Details
+        </button>
+       </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+       <img alt="Screenshot of Theme 5" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/BWIge0GgP1sbVGrhUejKBHu0RN6zjXimzfzhqcmahHQ.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Theme 5
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of Theme 5.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+         Install
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme5')">
+         Details
+        </button>
+       </div>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg">
+       <img alt="Screenshot of Theme 6" class="rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/ZJREzkYi5HvDhZruTAHKSztmOTOYYZsa-s_WxJLaaLA.jpg" width="300"/>
+       <h2 class="text-xl font-semibold mb-2">
+        Theme 6
+       </h2>
+       <p class="text-gray-600 mb-4">
+        A brief description of Theme 6.
+       </p>
+       <div class="flex justify-between items-center">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+         Install
+        </button>
+        <button class="text-gray-700 hover:text-gray-900" onclick="openModal('theme6')">
+         Details
+        </button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!-- Modal -->
+  <div class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden" id="themeModal">
+   <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+    <div class="flex justify-between items-center mb-4">
+     <h2 class="text-2xl font-semibold" id="modalTitle">
+      Theme Details
+     </h2>
+     <button class="text-gray-700 hover:text-gray-900" onclick="closeModal()">
+      <i class="fas fa-times">
+      </i>
+     </button>
+    </div>
+    <img alt="Screenshot of the theme" class="rounded-lg mb-4" height="200" id="modalImage" src="https://storage.googleapis.com/a1aa/image/qcFXw5XeCB2JPkqyYy0nd6X0tMVrSTg4MFUTw85OqUE.jpg" width="300"/>
+    <p class="text-gray-600 mb-4" id="modalDescription">
+     A detailed description of the theme.
+    </p>
+    <div class="flex justify-end">
+     <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+      Install
+     </button>
+    </div>
+   </div>
+  </div>
+  <script>
+   function openModal(theme) {
+        const themes = {
+            theme1: {
+                title: 'Current Theme',
+                image: 'https://storage.googleapis.com/a1aa/image/_xTDWb1-Ojw2CCjxF85_8sWPkpOSDOTP8WEwH_FYBMw.jpg',
+                description: 'A detailed description of the current theme.'
+            },
+            theme2: {
+                title: 'Theme 2',
+                image: 'https://storage.googleapis.com/a1aa/image/qcFXw5XeCB2JPkqyYy0nd6X0tMVrSTg4MFUTw85OqUE.jpg',
+                description: 'A detailed description of Theme 2.'
+            },
+            theme3: {
+                title: 'Theme 3',
+                image: 'https://storage.googleapis.com/a1aa/image/NAAmYzvp9IZ0hVMrgOdERNUttloZgt7B3czEcvqoMfc.jpg',
+                description: 'A detailed description of Theme 3.'
+            },
+            theme4: {
+                title: 'Theme 4',
+                image: 'https://storage.googleapis.com/a1aa/image/nA4y3EAybqHPNuNInkrTE3PE7RSF5p4hEdvMOPKXHEQ.jpg',
+                description: 'A detailed description of Theme 4.'
+            },
+            theme5: {
+                title: 'Theme 5',
+                image: 'https://storage.googleapis.com/a1aa/image/BWIge0GgP1sbVGrhUejKBHu0RN6zjXimzfzhqcmahHQ.jpg',
+                description: 'A detailed description of Theme 5.'
+            },
+            theme6: {
+                title: 'Theme 6',
+                image: 'https://storage.googleapis.com/a1aa/image/ZJREzkYi5HvDhZruTAHKSztmOTOYYZsa-s_WxJLaaLA.jpg',
+                description: 'A detailed description of Theme 6.'
+            }
+        };
+
+        const themeData = themes[theme];
+        document.getElementById('modalTitle').innerText = themeData.title;
+        document.getElementById('modalImage').src = themeData.image;
+        document.getElementById('modalDescription').innerText = themeData.description;
+
+        document.getElementById('themeModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('themeModal').classList.add('hidden');
+    }
+  </script>
+ </body>
+</html>

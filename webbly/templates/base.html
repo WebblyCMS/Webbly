@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Webbly</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    {% block styles %}{% endblock %}
+    
+    <!-- Meta tags -->
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+    <!-- Custom head content -->
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-4 right-4 z-50">
+                {% for category, message in messages %}
+                    <div class="alert mb-4 p-4 rounded-lg shadow-lg {% if category == 'error' %}bg-red-500{% elif category == 'success' %}bg-green-500{% else %}bg-blue-500{% endif %} text-white">
+                        <div class="flex items-center">
+                            <span class="mr-2">
+                                {% if category == 'error' %}
+                                    <i class="fas fa-exclamation-circle"></i>
+                                {% elif category == 'success' %}
+                                    <i class="fas fa-check-circle"></i>
+                                {% else %}
+                                    <i class="fas fa-info-circle"></i>
+                                {% endif %}
+                            </span>
+                            {{ message }}
+                            <button class="ml-auto" onclick="this.parentElement.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Header -->
+    {% block header %}{% endblock %}
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% block footer %}
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">About</h3>
+                        <p class="text-gray-400">{{ get_setting('site_description', 'A Webbly powered website') }}</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="{{ url_for('core.index') }}" class="text-gray-400 hover:text-white">Home</a></li>
+                            {% if current_user.is_authenticated %}
+                                <li><a href="{{ url_for('admin.dashboard') }}" class="text-gray-400 hover:text-white">Dashboard</a></li>
+                            {% else %}
+                                <li><a href="{{ url_for('auth.login') }}" class="text-gray-400 hover:text-white">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Connect</h3>
+                        <div class="flex space-x-4">
+                            {% set twitter = get_setting('social_twitter') %}
+                            {% set facebook = get_setting('social_facebook') %}
+                            {% set instagram = get_setting('social_instagram') %}
+                            
+                            {% if twitter %}
+                                <a href="{{ twitter }}" class="text-gray-400 hover:text-white" target="_blank">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            {% endif %}
+                            
+                            {% if facebook %}
+                                <a href="{{ facebook }}" class="text-gray-400 hover:text-white" target="_blank">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            {% endif %}
+                            
+                            {% if instagram %}
+                                <a href="{{ instagram }}" class="text-gray-400 hover:text-white" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                    <p>{{ get_setting('footer_text', '© ' ~ now.year ~ ' Powered by Webbly') }}</p>
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block scripts %}{% endblock %}
+    
+    <!-- Analytics -->
+    {% if get_setting('analytics_id') %}
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ get_setting('analytics_id') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '{{ get_setting("analytics_id") }}');
+        </script>
+    {% endif %}
+    
+    <!-- Custom JavaScript -->
+    {% if get_setting('custom_js') %}
+        <script>
+            {{ get_setting('custom_js')|safe }}
+        </script>
+    {% endif %}
+    
+    <!-- Custom CSS -->
+    {% if get_setting('custom_css') %}
+        <style>
+            {{ get_setting('custom_css')|safe }}
+        </style>
+    {% endif %}
+</body>
+</html>

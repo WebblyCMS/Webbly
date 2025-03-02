@@ -1,0 +1,17 @@
+/* Custom styles for the website */
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+h1, h2, h3 {
+    color: #1E3A8A; /* Dark blue color */
+}
+
+p {
+    color: #4B5563; /* Gray color */
+}
+
+footer {
+    background-color: #1E3A8A; /* Dark blue color */
+}

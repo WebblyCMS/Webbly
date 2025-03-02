@@ -1,0 +1,224 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ "Edit" if post else "New" }} Post - Admin{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css" rel="stylesheet">
+<style>
+    .CodeMirror {
+        height: 400px;
+    }
+    .editor-toolbar {
+        border-radius: 0.375rem 0.375rem 0 0;
+    }
+    .CodeMirror {
+        border-radius: 0 0 0.375rem 0.375rem;
+    }
+</style>
+{% endblock %}
+
+{% block admin_content %}
+<!-- Page Header -->
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">{{ "Edit" if post else "New" }} Post</h1>
+    <p class="mt-1 text-sm text-gray-600">
+        {{ "Edit existing post" if post else "Create a new blog post" }}
+    </p>
+</div>
+
+<form method="POST" enctype="multipart/form-data" class="space-y-8">
+    {{ form.hidden_tag() }}
+    
+    <div class="bg-white shadow rounded-lg">
+        <div class="p-6 space-y-6">
+            <!-- Title -->
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <div class="mt-1">
+                    {{ form.title(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="Enter post title"
+                    ) }}
+                </div>
+                {% if form.title.errors %}
+                    {% for error in form.title.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Content -->
+            <div>
+                <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+                <div class="mt-1">
+                    {{ form.content(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        rows="3"
+                    ) }}
+                </div>
+                {% if form.content.errors %}
+                    {% for error in form.content.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Excerpt -->
+            <div>
+                <label for="excerpt" class="block text-sm font-medium text-gray-700">
+                    Excerpt
+                    <span class="text-gray-500">(optional)</span>
+                </label>
+                <div class="mt-1">
+                    {{ form.excerpt(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        rows="2",
+                        placeholder="Brief summary of the post"
+                    ) }}
+                </div>
+                {% if form.excerpt.errors %}
+                    {% for error in form.excerpt.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Featured Image -->
+            <div>
+                <label for="featured_image" class="block text-sm font-medium text-gray-700">
+                    Featured Image
+                    <span class="text-gray-500">(optional)</span>
+                </label>
+                {% if post and post.featured_image %}
+                    <div class="mt-2 flex items-center space-x-4">
+                        <img src="{{ url_for('static', filename=post.featured_image) }}" 
+                             alt="Current featured image"
+                             class="h-32 w-32 object-cover rounded">
+                        <div>
+                            <p class="text-sm text-gray-500">Current image</p>
+                            <button type="button" 
+                                    onclick="document.getElementById('remove_image').value = 'true'"
+                                    class="mt-2 text-sm text-red-600 hover:text-red-800">
+                                Remove image
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="mt-1">
+                    {{ form.featured_image(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    ) }}
+                </div>
+                {% if form.featured_image.errors %}
+                    {% for error in form.featured_image.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                <input type="hidden" name="remove_image" id="remove_image" value="false">
+            </div>
+
+            <!-- Published Status -->
+            <div class="flex items-center">
+                {{ form.published(
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                ) }}
+                <label for="published" class="ml-2 block text-sm text-gray-900">
+                    Publish this post
+                </label>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="px-6 py-3 bg-gray-50 flex items-center justify-between rounded-b-lg">
+            <button type="button" 
+                    onclick="history.back()" 
+                    class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Cancel
+            </button>
+            {{ form.submit(
+                class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            ) }}
+        </div>
+    </div>
+</form>
+
+<!-- Preview Panel -->
+<div class="fixed top-0 right-0 w-1/2 h-full bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out" id="previewPanel">
+    <div class="h-full flex flex-col">
+        <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+            <h2 class="text-lg font-medium text-gray-900">Preview</h2>
+            <button onclick="togglePreview()" class="text-gray-400 hover:text-gray-500">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="flex-1 overflow-auto p-6" id="previewContent"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const easyMDE = new EasyMDE({
+    element: document.getElementById('content'),
+    spellChecker: false,
+    autosave: {
+        enabled: true,
+        uniqueId: "postEditor",
+        delay: 1000,
+    },
+    toolbar: [
+        "bold", "italic", "heading", "|",
+        "quote", "unordered-list", "ordered-list", "|",
+        "link", "image", "|",
+        "preview", "side-by-side", "fullscreen", "|",
+        "guide"
+    ]
+});
+
+function togglePreview() {
+    const panel = document.getElementById('previewPanel');
+    const content = document.getElementById('previewContent');
+    
+    if (panel.classList.contains('translate-x-full')) {
+        panel.classList.remove('translate-x-full');
+        content.innerHTML = marked(easyMDE.value());
+    } else {
+        panel.classList.add('translate-x-full');
+    }
+}
+
+// Auto-generate slug from title
+document.getElementById('title').addEventListener('input', function(e) {
+    const title = e.target.value;
+    const slug = title.toLowerCase()
+                     .replace(/[^\w\s-]/g, '')
+                     .replace(/\s+/g, '-');
+    document.getElementById('slug').value = slug;
+});
+
+// Image preview
+document.getElementById('featured_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.createElement('img');
+            preview.src = e.target.result;
+            preview.className = 'mt-2 h-32 w-32 object-cover rounded';
+            
+            const container = document.getElementById('featured_image').parentElement;
+            const existingPreview = container.querySelector('img');
+            if (existingPreview) {
+                container.removeChild(existingPreview);
+            }
+            container.appendChild(preview);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %}

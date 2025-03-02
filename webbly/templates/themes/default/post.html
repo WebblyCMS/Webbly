@@ -1,0 +1,218 @@
+{% extends "themes/default/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+<style>
+    .prose {
+        max-width: 65ch;
+        margin: 0 auto;
+    }
+    .prose img {
+        margin: 2rem auto;
+        border-radius: 0.5rem;
+    }
+    .prose pre {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+    }
+    .prose code {
+        background: #f1f5f9;
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+    }
+    .prose pre code {
+        background: none;
+        padding: 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Post Header -->
+    <header class="text-center mb-12">
+        {% if post.featured_image %}
+            <div class="aspect-w-16 aspect-h-9 mb-8">
+                <img src="{{ url_for('static', filename=post.featured_image) }}"
+                     alt="{{ post.title }}"
+                     class="w-full h-96 object-cover rounded-lg shadow-lg">
+            </div>
+        {% endif %}
+        
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ post.title }}</h1>
+        
+        <div class="flex items-center justify-center mb-6">
+            <img class="h-10 w-10 rounded-full" 
+                 src="https://www.gravatar.com/avatar/{{ post.author.email|gravatar }}?s=40&d=identicon" 
+                 alt="{{ post.author.username }}">
+            <div class="ml-3 text-left">
+                <p class="text-sm font-medium text-gray-900">{{ post.author.username }}</p>
+                <div class="flex space-x-1 text-sm text-gray-500">
+                    <time datetime="{{ post.created_at.isoformat() }}">
+                        {{ post.created_at.strftime('%B %d, %Y') }}
+                    </time>
+                    <span aria-hidden="true">&middot;</span>
+                    <span>{{ post.content|wordcount }} min read</span>
+                </div>
+            </div>
+        </div>
+        
+        {% if post.excerpt %}
+            <p class="text-xl text-gray-500 max-w-3xl mx-auto">
+                {{ post.excerpt }}
+            </p>
+        {% endif %}
+    </header>
+
+    <!-- Post Content -->
+    <div class="prose prose-lg mx-auto">
+        {{ post.content|markdown }}
+    </div>
+
+    <!-- Post Footer -->
+    <footer class="mt-12 pt-8 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button onclick="likePost({{ post.id }})" 
+                        class="inline-flex items-center text-gray-500 hover:text-red-500">
+                    <i class="far fa-heart mr-2"></i>
+                    <span id="likeCount">{{ post.likes|default(0) }}</span>
+                </button>
+                <button onclick="sharePost()" 
+                        class="inline-flex items-center text-gray-500 hover:text-blue-500">
+                    <i class="far fa-share-square mr-2"></i>
+                    Share
+                </button>
+            </div>
+            {% if current_user.is_authenticated and current_user.is_admin %}
+                <a href="{{ url_for('admin.edit_post', id=post.id) }}" 
+                   class="inline-flex items-center text-blue-600 hover:text-blue-800">
+                    <i class="fas fa-edit mr-2"></i>
+                    Edit Post
+                </a>
+            {% endif %}
+        </div>
+    </footer>
+
+    <!-- Comments Section -->
+    {% if get_setting('enable_comments', 'true')|lower == 'true' %}
+        <section class="mt-12 pt-8 border-t border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-900 mb-8">Comments</h2>
+            
+            {% if current_user.is_authenticated %}
+                <form action="{{ url_for('core.add_comment', slug=post.slug) }}" method="POST" class="mb-8">
+                    <div>
+                        <label for="comment" class="sr-only">Add a comment</label>
+                        <textarea id="comment" 
+                                 name="content" 
+                                 rows="3" 
+                                 class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
+                                 placeholder="Add a comment..."></textarea>
+                    </div>
+                    <div class="mt-3 flex items-center justify-end">
+                        <button type="submit"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Post Comment
+                        </button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <p class="text-gray-600">
+                        Please <a href="{{ url_for('auth.login') }}" class="text-blue-600 hover:text-blue-800">log in</a> 
+                        to leave a comment.
+                    </p>
+                </div>
+            {% endif %}
+            
+            <div class="space-y-6">
+                {% for comment in post.comments|selectattr('approved')|list %}
+                    <div class="flex space-x-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" 
+                                 src="https://www.gravatar.com/avatar/{{ comment.author.email|gravatar }}?s=40&d=identicon" 
+                                 alt="{{ comment.author.username }}">
+                        </div>
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm font-medium text-gray-900">{{ comment.author.username }}</h3>
+                                <time datetime="{{ comment.created_at.isoformat() }}" 
+                                      class="text-sm text-gray-500">
+                                    {{ comment.created_at.strftime('%B %d, %Y') }}
+                                </time>
+                            </div>
+                            <div class="mt-1 text-sm text-gray-700">
+                                {{ comment.content }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-center text-gray-500">No comments yet. Be the first to comment!</p>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+</article>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-markup.min.js"></script>
+<script>
+async function likePost(postId) {
+    try {
+        const response = await fetch(`/api/posts/${postId}/like`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const data = await response.json();
+        document.getElementById('likeCount').textContent = data.likes;
+        
+        const heartIcon = document.querySelector('.fa-heart');
+        heartIcon.classList.toggle('far');
+        heartIcon.classList.toggle('fas');
+        heartIcon.classList.toggle('text-red-500');
+    } catch (error) {
+        console.error('Error liking post:', error);
+    }
+}
+
+function sharePost() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ post.title }}',
+            text: '{{ post.excerpt or post.title }}',
+            url: window.location.href
+        });
+    } else {
+        // Fallback for browsers that don't support Web Share API
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        
+        alert('URL copied to clipboard!');
+    }
+}
+
+// Highlight code blocks
+document.addEventListener('DOMContentLoaded', (event) => {
+    Prism.highlightAll();
+});
+</script>
+{% endblock %}

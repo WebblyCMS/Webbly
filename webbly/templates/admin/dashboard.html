@@ -1,0 +1,191 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Dashboard - Admin{% endblock %}
+
+{% block admin_content %}
+<!-- Page Header -->
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+    <p class="mt-1 text-sm text-gray-600">Welcome back, {{ current_user.username }}</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Posts Stats -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                <i class="fas fa-pencil-alt"></i>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold text-gray-900">Posts</h2>
+                <p class="text-3xl font-bold text-gray-700">{{ post_count }}</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('admin.posts') }}" class="text-sm text-blue-600 hover:text-blue-800">View all posts →</a>
+        </div>
+    </div>
+
+    <!-- Pages Stats -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-green-100 text-green-600">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold text-gray-900">Pages</h2>
+                <p class="text-3xl font-bold text-gray-700">{{ page_count }}</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('admin.pages') }}" class="text-sm text-green-600 hover:text-green-800">View all pages →</a>
+        </div>
+    </div>
+
+    <!-- Comments Stats -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                <i class="fas fa-comments"></i>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold text-gray-900">Comments</h2>
+                <p class="text-3xl font-bold text-gray-700">{{ comment_count }}</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('admin.comments') }}" class="text-sm text-yellow-600 hover:text-yellow-800">View all comments →</a>
+        </div>
+    </div>
+
+    <!-- Users Stats -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-red-100 text-red-600">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold text-gray-900">Users</h2>
+                <p class="text-3xl font-bold text-gray-700">{{ user_count }}</p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <a href="{{ url_for('admin.users') }}" class="text-sm text-red-600 hover:text-red-800">View all users →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="bg-white rounded-lg shadow mb-8">
+    <div class="px-6 py-4 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Quick Actions</h2>
+    </div>
+    <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="{{ url_for('admin.new_post') }}" class="flex items-center justify-center p-4 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100">
+            <i class="fas fa-plus mr-2"></i>
+            New Post
+        </a>
+        <a href="{{ url_for('admin.new_page') }}" class="flex items-center justify-center p-4 bg-green-50 text-green-700 rounded-lg hover:bg-green-100">
+            <i class="fas fa-file-alt mr-2"></i>
+            New Page
+        </a>
+        <a href="{{ url_for('admin.themes') }}" class="flex items-center justify-center p-4 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100">
+            <i class="fas fa-paint-brush mr-2"></i>
+            Manage Themes
+        </a>
+        <a href="{{ url_for('admin.plugins') }}" class="flex items-center justify-center p-4 bg-yellow-50 text-yellow-700 rounded-lg hover:bg-yellow-100">
+            <i class="fas fa-plug mr-2"></i>
+            Manage Plugins
+        </a>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Recent Posts -->
+    <div class="bg-white rounded-lg shadow">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Recent Posts</h2>
+        </div>
+        <div class="p-6">
+            {% if recent_posts %}
+                <div class="space-y-4">
+                    {% for post in recent_posts %}
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                {% if post.featured_image %}
+                                    <img src="{{ url_for('static', filename=post.featured_image) }}" alt="{{ post.title }}" class="w-12 h-12 rounded object-cover">
+                                {% else %}
+                                    <div class="w-12 h-12 rounded bg-gray-200 flex items-center justify-center">
+                                        <i class="fas fa-file-alt text-gray-400"></i>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-sm font-medium text-gray-900">{{ post.title }}</h3>
+                                <p class="text-sm text-gray-500">
+                                    {{ post.created_at.strftime('%B %d, %Y') }} by {{ post.author.username }}
+                                </p>
+                            </div>
+                            <div class="ml-auto">
+                                <a href="{{ url_for('admin.edit_post', id=post.id) }}" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500 text-center py-4">No recent posts</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Comments -->
+    <div class="bg-white rounded-lg shadow">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Recent Comments</h2>
+        </div>
+        <div class="p-6">
+            {% if recent_comments %}
+                <div class="space-y-4">
+                    {% for comment in recent_comments %}
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <img src="https://www.gravatar.com/avatar/{{ comment.author.email|gravatar }}?s=40&d=identicon" 
+                                     alt="{{ comment.author.username }}" 
+                                     class="w-10 h-10 rounded-full">
+                            </div>
+                            <div class="ml-4 flex-grow">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-medium text-gray-900">{{ comment.author.username }}</h3>
+                                    <p class="text-sm text-gray-500">{{ comment.created_at.strftime('%B %d, %Y') }}</p>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-1">{{ comment.content[:100] }}...</p>
+                                <p class="text-xs text-gray-500 mt-1">On: {{ comment.post.title }}</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0">
+                                {% if not comment.approved %}
+                                    <form action="{{ url_for('admin.approve_comment', id=comment.id) }}" method="post" class="inline">
+                                        <button type="submit" class="text-green-600 hover:text-green-800">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                                <form action="{{ url_for('admin.delete_comment', id=comment.id) }}" method="post" class="inline ml-2">
+                                    <button type="submit" class="text-red-600 hover:text-red-800">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-gray-500 text-center py-4">No recent comments</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

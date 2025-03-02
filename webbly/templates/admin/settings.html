@@ -1,0 +1,297 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Settings - Admin{% endblock %}
+
+{% block admin_content %}
+<!-- Page Header -->
+<div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Settings</h1>
+    <p class="mt-1 text-sm text-gray-600">Configure your website settings</p>
+</div>
+
+<form method="POST" enctype="multipart/form-data" class="space-y-8">
+    {{ form.hidden_tag() }}
+
+    <!-- General Settings -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">General Settings</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <!-- Site Title -->
+            <div>
+                <label for="site_title" class="block text-sm font-medium text-gray-700">Site Title</label>
+                <div class="mt-1">
+                    {{ form.site_title(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="Your Website Name"
+                    ) }}
+                </div>
+                {% if form.site_title.errors %}
+                    {% for error in form.site_title.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Site Description -->
+            <div>
+                <label for="site_description" class="block text-sm font-medium text-gray-700">Site Description</label>
+                <div class="mt-1">
+                    {{ form.site_description(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        rows="3",
+                        placeholder="Brief description of your website"
+                    ) }}
+                </div>
+                {% if form.site_description.errors %}
+                    {% for error in form.site_description.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Posts Per Page -->
+            <div>
+                <label for="posts_per_page" class="block text-sm font-medium text-gray-700">Posts Per Page</label>
+                <div class="mt-1">
+                    {{ form.posts_per_page(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        type="number",
+                        min="1",
+                        max="50"
+                    ) }}
+                </div>
+                {% if form.posts_per_page.errors %}
+                    {% for error in form.posts_per_page.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Settings -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Comments</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <div class="flex items-center">
+                {{ form.enable_comments(
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                ) }}
+                <label for="enable_comments" class="ml-2 block text-sm text-gray-900">
+                    Enable comments on posts
+                </label>
+            </div>
+            
+            <div class="flex items-center">
+                {{ form.comment_moderation(
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                ) }}
+                <label for="comment_moderation" class="ml-2 block text-sm text-gray-900">
+                    Enable comment moderation
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Settings -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Media</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <!-- Site Logo -->
+            <div>
+                <label for="site_logo" class="block text-sm font-medium text-gray-700">Site Logo</label>
+                {% if current_logo %}
+                    <div class="mt-2 flex items-center">
+                        <img src="{{ url_for('static', filename=current_logo) }}" 
+                             alt="Current logo" 
+                             class="h-12 w-auto">
+                        <button type="button" 
+                                onclick="document.getElementById('remove_logo').value = 'true'"
+                                class="ml-4 text-sm text-red-600 hover:text-red-800">
+                            Remove logo
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="mt-1">
+                    {{ form.site_logo(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    ) }}
+                </div>
+                {% if form.site_logo.errors %}
+                    {% for error in form.site_logo.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                <input type="hidden" name="remove_logo" id="remove_logo" value="false">
+            </div>
+
+            <!-- Favicon -->
+            <div>
+                <label for="favicon" class="block text-sm font-medium text-gray-700">Favicon</label>
+                {% if current_favicon %}
+                    <div class="mt-2 flex items-center">
+                        <img src="{{ url_for('static', filename=current_favicon) }}" 
+                             alt="Current favicon" 
+                             class="h-8 w-8">
+                        <button type="button" 
+                                onclick="document.getElementById('remove_favicon').value = 'true'"
+                                class="ml-4 text-sm text-red-600 hover:text-red-800">
+                            Remove favicon
+                        </button>
+                    </div>
+                {% endif %}
+                <div class="mt-1">
+                    {{ form.favicon(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                    ) }}
+                </div>
+                {% if form.favicon.errors %}
+                    {% for error in form.favicon.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+                <input type="hidden" name="remove_favicon" id="remove_favicon" value="false">
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Media Settings -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Social Media</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <!-- Social Media Links -->
+            <div>
+                <label for="social_twitter" class="block text-sm font-medium text-gray-700">Twitter URL</label>
+                <div class="mt-1">
+                    {{ form.social_twitter(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="https://twitter.com/yourusername"
+                    ) }}
+                </div>
+            </div>
+
+            <div>
+                <label for="social_facebook" class="block text-sm font-medium text-gray-700">Facebook URL</label>
+                <div class="mt-1">
+                    {{ form.social_facebook(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="https://facebook.com/yourpage"
+                    ) }}
+                </div>
+            </div>
+
+            <div>
+                <label for="social_instagram" class="block text-sm font-medium text-gray-700">Instagram URL</label>
+                <div class="mt-1">
+                    {{ form.social_instagram(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="https://instagram.com/yourusername"
+                    ) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Settings -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-900">Advanced Settings</h2>
+        </div>
+        <div class="p-6 space-y-6">
+            <!-- Analytics -->
+            <div>
+                <label for="analytics_id" class="block text-sm font-medium text-gray-700">Google Analytics ID</label>
+                <div class="mt-1">
+                    {{ form.analytics_id(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md",
+                        placeholder="UA-XXXXXXXXX-X or G-XXXXXXXXXX"
+                    ) }}
+                </div>
+            </div>
+
+            <!-- Custom CSS -->
+            <div>
+                <label for="custom_css" class="block text-sm font-medium text-gray-700">Custom CSS</label>
+                <div class="mt-1">
+                    {{ form.custom_css(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md font-mono",
+                        rows="5",
+                        placeholder="/* Add your custom CSS here */"
+                    ) }}
+                </div>
+            </div>
+
+            <!-- Custom JavaScript -->
+            <div>
+                <label for="custom_js" class="block text-sm font-medium text-gray-700">Custom JavaScript</label>
+                <div class="mt-1">
+                    {{ form.custom_js(
+                        class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md font-mono",
+                        rows="5",
+                        placeholder="// Add your custom JavaScript here"
+                    ) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="flex justify-end space-x-4">
+        <button type="button" 
+                onclick="history.back()" 
+                class="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Cancel
+        </button>
+        {{ form.submit(
+            class="px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        ) }}
+    </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+// Preview uploaded images
+function previewImage(input, previewElement) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewElement.src = e.target.result;
+            previewElement.classList.remove('hidden');
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Handle logo preview
+const logoInput = document.getElementById('site_logo');
+if (logoInput) {
+    logoInput.addEventListener('change', function(e) {
+        const preview = document.querySelector('[data-logo-preview]');
+        if (preview) {
+            previewImage(this, preview);
+        }
+    });
+}
+
+// Handle favicon preview
+const faviconInput = document.getElementById('favicon');
+if (faviconInput) {
+    faviconInput.addEventListener('change', function(e) {
+        const preview = document.querySelector('[data-favicon-preview]');
+        if (preview) {
+            previewImage(this, preview);
+        }
+    });
+}
+</script>
+{% endblock %}

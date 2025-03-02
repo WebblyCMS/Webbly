@@ -1,0 +1,9 @@
+{
+    "name": "Webbly Default",
+    "version": "1.0.0",
+    "description": "Default theme for Webbly",
+    "author": "Webbly Team",
+    "license": "GPL-3.0",
+    "tags": ["default", "light", "simple"],
+    "screenshot": "screenshot.png"
+}
